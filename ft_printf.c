@@ -6,7 +6,7 @@
 /*   By: ytrabels <ytrabels@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 01:46:52 by ytrabels          #+#    #+#             */
-/*   Updated: 2026/05/07 11:02:30 by ytrabels         ###   ########.fr       */
+/*   Updated: 2026/05/07 12:19:12 by ytrabels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -46,11 +46,11 @@ static void	parser_episode2(char *fmt, va_list ap, int i, int *len)
 	if (fmt[i] == 'd' || fmt[i] == 'i')
 		*len += ft_putnbr(va_arg(ap, int));
 	if (fmt[i] == 'u')
-		*len += ft_putnbr(va_arg(ap, long));
+		*len += ft_putnbr(va_arg(ap, unsigned int));
 	if (fmt[i] == 'x')
-		*len += ft_convert_tohex(va_arg(ap, long), "0123456789abcdef");
+		*len += ft_convert_tohex(va_arg(ap, unsigned int), "0123456789abcdef");
 	if (fmt[i] == 'X')
-		*len += ft_convert_tohex(va_arg(ap, long), "0123456789ABCDEF");
+		*len += ft_convert_tohex(va_arg(ap, unsigned int), "0123456789ABCDEF");
 	if (fmt[i] == '%')
 		*len += ft_putchar('%');
 }
@@ -60,6 +60,8 @@ int	ft_printf(const char *fmt, ...)
 	va_list	ap;
 	int		len;
 
+	if(!fmt)
+		return (-1);
 	va_start(ap, fmt);
 	len = parser((char *)fmt, ap);
 	va_end(ap);
